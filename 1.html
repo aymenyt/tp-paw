@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance System</title>
+  <style>
+    /* General page style */
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header */
+    h1 {
+      margin-top: 25px;
+      color: #2b2b2b;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #ffffff;
+      padding: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border-radius: 6px;
+      width: 80%;
+      margin: 15px auto 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      margin: 0 12px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #0078d4;
+    }
+
+    /* Section titles */
+    h2 {
+      color: #222;
+      margin-top: 30px;
+    }
+
+    /* Table style */
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 80%;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f1f3f6;
+      font-weight: bold;
+    }
+
+    /* Form container */
+    #add-student form {
+      background-color: #f7f7f7;
+      width: 400px;
+      margin: 30px auto;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    #add-student label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #add-student input {
+      width: 95%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+
+    #add-student button {
+      padding: 10px 15px;
+      background-color: #e9f2ff;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      margin-top: 15px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    #add-student button:hover {
+      background-color: #d7e8ff;
+    }
+
+    /* Responsive design */
+   @media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  table th, table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  form {
+    width: 95%;
+    padding: 15px;
+  }
+
+  form input, form button {
+    width: 100%;
+  }
+}
+    }
+  </style>
+</head>
+<body>
+
+  <h1>WEB PAGE</h1>
+
+  <nav>
+    <a href="#">Home</a> |
+    <a href="#">Attendance List</a> |
+    <a href="#">Add Student</a> |
+    <a href="#">Reports</a> |
+    <a href="#">Logout</a>
+  </nav>
+
+  <h2>Student Attendance</h2>
+  <table>
+    <tr>
+      <th rowspan="2">Student ID</th>
+      <th rowspan="2">Last Name</th>
+      <th rowspan="2">First Name</th>
+      <th rowspan="2">Course</th>
+      <th colspan="2">Session Date</th>
+    </tr>
+    <tr>
+      <th>Participated</th>
+      <th>Present</th>
+    </tr>
+    <tr>
+      <td>101</td>
+      <td>Guerniche</td>
+      <td>Samir</td>
+      <td>PAW</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>GHERBI</td>
+      <td>AYMEN</td>
+      <td>paw</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+  </table>
+
+  <section id="add-student">
+    <h2>Add New Student</h2>
+    <form>
+      <label><strong>ID</strong></label>
+      <input type="text" placeholder="Write your ID" required>
+
+      <label><strong>First Name</strong></label>
+      <input type="text" placeholder="Write your first name" required>
+
+      <label><strong>Last Name</strong></label>
+      <input type="text" placeholder="Write your last name" required>
+
+      <label><strong>Email</strong></label>
+      <input type="email" placeholder="Write your email" required>
+
+      <button type="submit">SUBMIT</button>
+      <button type="reset">DELETE</button>
+    </form>
+  </section>
+
+  <section id="reports">
+    <h2>Reports</h2>
+    <p>Reports will be available soon.</p>
+  </section>
+
+  <section id="logout">
+    <h2>Logout</h2>
+    <p>You have been logged out.</p>
+  </section>
+
+</body>
+</html>
+
+
+
+
+
+

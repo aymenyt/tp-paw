@@ -1,0 +1,23 @@
+2025-11-27 17:18:12 - Connection failed: SQLSTATE[HY000] [1049] Base 'add_student2.php' inconnue
+2025-11-27 17:20:12 - Connection failed: SQLSTATE[HY000] [1049] Base 'student attendance' inconnue
+2025-11-27 17:22:34 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:34 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:35 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:35 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:35 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:35 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:36 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:36 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:22:36 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:23:58 - Connection failed: SQLSTATE[HY000] [1049] Base 'students_db' inconnue
+2025-11-27 17:23:59 - Connection failed: SQLSTATE[HY000] [1049] Base 'students_db' inconnue
+2025-11-27 17:24:03 - Connection failed: SQLSTATE[HY000] [1049] Base 'students_db' inconnue
+2025-11-27 17:25:23 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:27:29 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:27:38 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:29:13 - Connection failed: SQLSTATE[HY000] [1049] Base 'tutorial3_db' inconnue
+2025-11-27 17:38:43 - Connection failed: SQLSTATE[HY000] [1049] Base 'school_db' inconnue
+2025-11-27 17:39:10 - Connection failed: SQLSTATE[HY000] [1049] Base 'school_db' inconnue
+2025-11-27 17:42:46 - Connection failed: SQLSTATE[HY000] [1045] Accès refusé pour l'utilisateur: ''@'@localhost' (mot de passe: NON)
+2025-11-27 17:44:43 - Connection failed: SQLSTATE[HY000] [1049] Base 'attendance' inconnue
+2025-11-27 17:48:00 - Connection failed: SQLSTATE[HY000] [1049] Base 'attendance' inconnue

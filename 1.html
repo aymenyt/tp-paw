@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial 2 — Attendance</title>
+<link rel="stylesheet" href="1.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="container">
+
+  <h1>web</h1>
+
+  <!-- Search & Sort Section -->
+  <div class="controls" style="justify-content:center; margin-bottom:15px; gap:10px;">
+    <input type="text" id="searchName" placeholder="Search by Name" style="padding:8px; border-radius:6px; border:1px solid #cfd8dc; width:250px;">
+    <button id="sortAbs" class="secondary">Sort by Absences (Asc)</button>
+    <button id="sortPart" class="secondary">Sort by Participation (Desc)</button>
+  </div>
+  <div id="sortMsg"></div>
+
+  <!-- Attendance Table -->
+  <section id="attendance">
+    <h2>Attendance Table</h2>
+    <div class="table-container">
+      <table id="attendanceTable">
+        <thead>
+          <tr>
+            <th>ID</th><th>Last</th><th>First</th>
+            <th colspan="6">Sessions</th>
+            <th colspan="6">Participation</th>
+            <th>Abs</th><th>Par</th><th>Message</th>
+          </tr>
+          <tr>
+            <th></th><th></th><th></th>
+            <th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th>
+            <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th>
+            <th></th><th></th><th></th>
+          </tr>
+        </thead>
+        <tbody id="tbodyStudents"></tbody>
+      </table>
+    </div>
+
+    <div class="controls">
+      <button id="showReport">Show Report</button>
+      <button id="highlightExcellent" class="secondary">Highlight Excellent</button>
+      <button id="resetColors" class="secondary">Reset Colors</button>
+    </div>
+  </section>
+
+  <!-- Add Student Form -->
+<section id="add-student">
+  <h2>Add Student</h2>
+  <form id="studentForm" novalidate>
+
+    <div class="form-field">
+      <label for="studentId"><strong>STUDENT ID</strong></label>
+      <input id="studentId" name="studentId" type="text" placeholder="write your id">
+    </div>
+
+    <div class="form-field">
+      <label for="lastName"><strong>LAST NAME</strong></label>
+      <input id="lastName" name="lastName" type="text" placeholder="write your last name">
+    </div>
+
+    <div class="form-field">
+      <label for="firstName"><strong>FIRST NAME</strong></label>
+      <input id="firstName" name="firstName" type="text" placeholder="write your first name">
+    </div>
+
+    <div class="form-field">
+      <label for="email"><strong>EMAIL</strong></label>
+      <input id="email" name="email" type="text" placeholder="write your email">
+    </div>
+
+    <div class="controls">
+      <button type="submit">Add Student</button>
+      <button type="button" id="resetForm" class="secondary">Reset</button>
+    </div>
+
+    <div id="formMsg" class="success"></div>
+
+  </form>
+</section>
+
+
+  <!-- REPORT -->
+  <div class="report" id="reportSection" style="display:none;">
+    <div class="report-box">Total: <span id="totalStudents">0</span></div>
+    <div class="report-box">Good Attendance: <span id="studentsPresent">0</span></div>
+    <div class="report-box">Participation ≥1: <span id="studentsParticipated">0</span></div>
+    <div class="chart-container"><canvas id="reportChart"></canvas></div>
+  </div>
+
+</div>
+
+<script>
+// ---------- INITIAL DATA ----------
+const tbody=document.getElementById('tbodyStudents');
+const defaultStudents=[
+  ['2222221','serine ','Sara',[1,1,0,0,0,0],[1,0,0,0,0,0]],
+  ['2245211','mohammed ','Ali',[1,0,1,1,1,1],[1,1,1,1,0,0]],
+  ['1515451','guerniche','samir',[1,1,0,1,1,0],[1,0,1,0,0,0]]
+];
+
+// ---------- CREATE ROW ----------
+function createRow(s){
+  const [id,last,first,sessions,parts]=s;
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="col-id">${id}</td><td class="col-last">${last}</td><td class="col-first">${first}</td>
+    ${sessions.map((v,i)=>`<td><input type="checkbox" class="att" ${v?'checked':''}></td>`).join('')}
+    ${parts.map((v,i)=>`<td><input type="checkbox" class="part" ${v?'checked':''}></td>`).join('')}
+    <td class="col-abs">0</td><td class="col-partcount">0</td><td class="col-msg"></td>`;
+  return tr;
+}
+
+// ---------- UPDATE ROW INFO ----------
+function updateRowInfo(tr){
+  const att=[...tr.querySelectorAll('.att')].filter(b=>b.checked).length;
+  const part=[...tr.querySelectorAll('.part')].filter(b=>b.checked).length;
+  const absences=tr.querySelectorAll('.att').length-att;
+  tr.querySelector('.col-abs').textContent=absences+' Abs';
+  tr.querySelector('.col-partcount').textContent=part+' Par';
+  tr.querySelector('.col-msg').textContent=(absences<=2 && part>=3)?'Good - Excellent':(absences>=5)?'Excluded':'Warning';
+  tr.className=(absences<3?'greenish':absences<=4?'yellowish':'redish');
+}
+
+// ---------- INITIALIZE TABLE ----------
+defaultStudents.forEach(s=>tbody.appendChild(createRow(s)));
+tbody.querySelectorAll('tr').forEach(updateRowInfo);
+
+// ---------- EVENT LISTENERS ----------
+tbody.addEventListener('change',e=>{if(e.target.matches('input.att,input.part')) updateRowInfo(e.target.closest('tr'));});
+
+// CLICK ROW ALERT
+$('#tbodyStudents').on('click','tr',function(){
+  alert(`Student: ${$(this).find('.col-first').text()} ${$(this).find('.col-last').text()}\n${$(this).find('.col-abs').text()}`);
+}).on('mouseenter','tr',function(){ $(this).addClass('hover-highlight'); })
+  .on('mouseleave','tr',function(){ $(this).removeClass('hover-highlight'); });
+
+// ---------- ADD STUDENT ----------
+$('#studentForm').submit(function(e){
+  e.preventDefault();
+  const id=$('#studentId').val().trim(), last=$('#lastName').val().trim(),
+        first=$('#firstName').val().trim(), email=$('#email').val().trim();
+  if(!id||!last||!first||!email) return alert('Fill all fields');
+  const row=createRow([id,last,first,[0,0,0,0,0,0],[0,0,0,0,0,0]]);
+  tbody.appendChild(row); updateRowInfo(row); $('#studentForm')[0].reset();
+});
+$('#resetForm').click(()=>$('#studentForm')[0].reset());
+
+// ---------- SHOW REPORT ----------
+let chartInstance=null;
+$('#showReport').click(()=>{
+  const rows=[...tbody.querySelectorAll('tr')]; let good=0, part=0;
+  rows.forEach(tr=>{ const a=parseInt(tr.querySelector('.col-abs').textContent)||0;
+    const p=parseInt(tr.querySelector('.col-partcount').textContent)||0;
+    if(a<3) good++; if(p>0) part++;
+  });
+  $('#totalStudents').text(rows.length);
+  $('#studentsPresent').text(good);
+  $('#studentsParticipated').text(part);
+  $('#reportSection').show();
+  const ctx=document.getElementById('reportChart').getContext('2d');
+  const data={labels:['Total','Good','Participated'], datasets:[{label:'Students',data:[rows.length,good,part],backgroundColor:['#2b7cff','#7ed6ff','#a0a0a0']}]};
+  if(chartInstance){chartInstance.data=data; chartInstance.update();}
+  else{chartInstance=new Chart(ctx,{type:'bar',data:data,options:{responsive:true,scales:{y:{beginAtZero:true}}}});}
+});
+
+// ---------- HIGHLIGHT / RESET ----------
+$('#highlightExcellent').click(()=>{ tbody.querySelectorAll('tr').forEach(tr=>{ if(parseInt(tr.querySelector('.col-abs').textContent)<3) $(tr).addClass('animate-excellent').fadeOut(160).fadeIn(160); }); });
+$('#resetColors').click(()=>{ tbody.querySelectorAll('tr').forEach(tr=>{ tr.className=''; updateRowInfo(tr); }); });
+
+// ---------- SEARCH BY NAME ----------
+$('#searchName').on('keyup', function() {
+  const val=$(this).val().toLowerCase();
+  $('#tbodyStudents tr').filter(function() {
+    const last=$(this).find('.col-last').text().toLowerCase();
+    const first=$(this).find('.col-first').text().toLowerCase();
+    $(this).toggle(last.includes(val) || first.includes(val));
+  });
+});
+
+// ---------- SORT TABLE ----------
+function sortTableRows(compareFunc){
+  const rows=$('#tbodyStudents tr').get();
+  rows.sort(compareFunc);
+  $.each(rows,function(i,row){ $('#tbodyStudents').append(row); });
+}
+$('#sortAbs').click(function(){
+  sortTableRows(function(a,b){
+    return (parseInt($(a).find('.col-abs').text())||0)-(parseInt($(b).find('.col-abs').text())||0);
+  });
+  $('#sortMsg').text("Currently sorted by absences (ascending)");
+});
+$('#sortPart').click(function(){
+  sortTableRows(function(a,b){
+    return (parseInt($(b).find('.col-partcount').text())||0)-(parseInt($(a).find('.col-partcount').text())||0);
+  });
+  $('#sortMsg').text("Currently sorted by participation (descending)");
+});
+</script>
+</body>
+</html>
+

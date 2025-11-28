@@ -109,7 +109,7 @@ try {
         <div class="nav-container">
             <a href="add_student.php" class="nav-link">➕ Add Student (JSON)</a>
             <a href="take_attendance.php" class="nav-link">📝 Take Attendance</a>
-            <a href="add_student_2.php" class="nav-link">➕ Add Student (DB)</a>
+            <a href="add_student2.php" class="nav-link">➕ Add Student (DB)</a>
             <a href="list_students.php" class="nav-link">📋 List Students</a>
             <a href="1.html" class="nav-link">🚀 Main System</a>
         </div>
@@ -125,7 +125,7 @@ try {
         <?php if (empty($students)): ?>
             <div class="empty-state">
                 <p>No students found in database.</p>
-                <a href="add_student_2.php" class="nav-link">Add First Student</a>
+                <a href="add_student2.php" class="nav-link">Add First Student</a>
             </div>
         <?php else: ?>
             <table class="students-table">
